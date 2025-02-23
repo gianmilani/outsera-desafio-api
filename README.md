@@ -7,16 +7,15 @@
 
 ### Stack
 
-| Tecnologia        | Versão |
-| ---               | -------|
-| Java              | 17     |
-| SpringBoot        | 3.4.2  |
-| H2                | 2.3.232|
+| Tecnologia | Versão  |
+|------------|---------|
+| Java       | 17      |
+| SpringBoot | 3.4.2   |
+| H2         | 2.3.232 |
+| gradle     | 8.12.1  |
 
-### Executando a Aplicação
-    
-    ./gradlew bootRun
+### Executando a Aplicação pelo CLI do Linux
+    gradle bootRun
 
-### Executando Testes
-
-    ./gradlew test
+### Executando Testes pelo CLI do Linux
+    gradle test
