@@ -12,9 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieDomain {
-    private String title;
-    private String studios;
-    private String producers;
-    private boolean winner;
-    private int year;;
+
+  private String title;
+  private String studios;
+  private String producers;
+  private boolean winner;
+  private int year;
+  ;
 }

@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProducerAwardIntervalDomain {
-    private String producer;
-    private Integer interval;
-    private Integer min;
-    private Integer max;
+
+  private String producer;
+  private Integer interval;
+  private Integer min;
+  private Integer max;
 }

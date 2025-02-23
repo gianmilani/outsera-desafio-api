@@ -5,5 +5,6 @@ import java.util.List;
 
 
 public interface ProducerAwardIntervalRepository {
-    List<ProducerAwardIntervalDomain> getProducerWithLongestAndFastestAwardsInterval();
+
+  List<ProducerAwardIntervalDomain> getProducerWithLongestAndFastestAwardsInterval();
 }

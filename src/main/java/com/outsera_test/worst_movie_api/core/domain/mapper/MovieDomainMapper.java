@@ -8,8 +8,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface MovieDomainMapper {
 
-    MovieDomain toDomain(MovieEntity movieEntity);
+  MovieDomain toDomain(MovieEntity movieEntity);
 
-    @Mapping(target = "id", ignore = true)
-    MovieEntity toEntity(MovieDomain movieDomain);
+  @Mapping(target = "id", ignore = true)
+  MovieEntity toEntity(MovieDomain movieDomain);
 }

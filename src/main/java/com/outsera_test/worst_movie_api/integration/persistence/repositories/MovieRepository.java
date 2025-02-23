@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieRepository extends JpaRepository<MovieEntity, Integer> {
-    Optional<MovieEntity> findByTitleAndProducersAndStudiosAndYear(
-            String title,
-            String producers,
-            String studios,
-            Integer year
-    );
+
+  Optional<MovieEntity> findByTitleAndProducersAndStudiosAndYear(
+      String title,
+      String producers,
+      String studios,
+      Integer year
+  );
 }

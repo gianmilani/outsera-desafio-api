@@ -13,23 +13,23 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 @EntityScan
 @OpenAPIDefinition(
-        info = @Info(
-                title = "Golden Raspberry Awards Rest API",
-                description = "REST APIs obtem os detalhes dos produtores que estão na categoria de pior filme",
-                version = "v1",
-                contact = @Contact(
-                        name = "Gian milani"
-                ),
-                license = @License(
-                        name = "Apache 2.0",
-                        url = "https://www.eazybytes.com"
-                )
+    info = @Info(
+        title = "Golden Raspberry Awards Rest API",
+        description = "REST APIs obtem os detalhes dos produtores que estão na categoria de pior filme",
+        version = "v1",
+        contact = @Contact(
+            name = "Gian milani"
+        ),
+        license = @License(
+            name = "Apache 2.0",
+            url = "https://www.eazybytes.com"
         )
+    )
 )
 public class WorstMovieApiApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(WorstMovieApiApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(WorstMovieApiApplication.class, args);
+  }
 
 }

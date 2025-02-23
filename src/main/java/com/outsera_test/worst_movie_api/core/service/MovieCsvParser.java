@@ -6,5 +6,6 @@ import java.io.File;
 import java.util.Set;
 
 public interface MovieCsvParser {
-    Set<MovieDomain> parse(File file) throws CsvParsingException;
+
+  Set<MovieDomain> parse(File file) throws CsvParsingException;
 }

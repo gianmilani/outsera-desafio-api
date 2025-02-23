@@ -11,35 +11,37 @@ import java.util.Collections;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
 import static com.outsera_test.worst_movie_api.commom.util.ConstantsUtils.MESSAGE_CSV_PARSING_EXCEPTION;
 
 @Slf4j
 @Component
 public class MovieCsvParserImpl implements MovieCsvParser {
-    private final String WINNER_CHECK = "yes";
 
-    @Override
-    public Set<MovieDomain> parse(File file) {
-        try {
-            return GenericCsvParser.parse(
-                    file,
-                    MovieCsvRepresentation.class,
-                    csvLine -> MovieDomain.builder()
-                            .title(csvLine.getTitle())
-                            .studios(csvLine.getStudios())
-                            .producers(csvLine.getProducers())
-                            .winner(isMovieWinner(csvLine.getWinner()))
-                            .year(csvLine.getYear())
-                            .build(),
-                    ';'
-            );
-        } catch (CsvParsingException | CsvInvalidFileException e) {
-            log.error(MESSAGE_CSV_PARSING_EXCEPTION, e.getMessage());
-            return Collections.emptySet();
-        }
-    }
+  private final String WINNER_CHECK = "yes";
 
-    private boolean isMovieWinner(String winner) {
-        return WINNER_CHECK.equalsIgnoreCase(winner);
+  @Override
+  public Set<MovieDomain> parse(File file) {
+    try {
+      return GenericCsvParser.parse(
+          file,
+          MovieCsvRepresentation.class,
+          csvLine -> MovieDomain.builder()
+              .title(csvLine.getTitle())
+              .studios(csvLine.getStudios())
+              .producers(csvLine.getProducers())
+              .winner(isMovieWinner(csvLine.getWinner()))
+              .year(csvLine.getYear())
+              .build(),
+          ';'
+      );
+    } catch (CsvParsingException | CsvInvalidFileException e) {
+      log.error(MESSAGE_CSV_PARSING_EXCEPTION, e.getMessage());
+      return Collections.emptySet();
     }
+  }
+
+  private boolean isMovieWinner(String winner) {
+    return WINNER_CHECK.equalsIgnoreCase(winner);
+  }
 }

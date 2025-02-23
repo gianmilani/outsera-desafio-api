@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResponseProducersAwards {
-    private List<ProducerAwardIntervalDomain> min;
-    private List<ProducerAwardIntervalDomain> max;
+
+  private List<ProducerAwardIntervalDomain> min;
+  private List<ProducerAwardIntervalDomain> max;
 }

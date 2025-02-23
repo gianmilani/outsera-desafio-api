@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class MovieSearchServiceImpl implements MovieSearchService {
 
-    private final ProducerAwardIntervalRepository producerAwardIntervalRepository;
-    private final ProducersAwardsMapperService producersAwardsMapperService;
+  private final ProducerAwardIntervalRepository producerAwardIntervalRepository;
+  private final ProducersAwardsMapperService producersAwardsMapperService;
 
-    public MovieSearchServiceImpl(
-            ProducerAwardIntervalRepositoryImpl producerAwardIntervalRepositoryImpl,
-            ProducersAwardsMapperService producersAwardsMapperService
-    ) {
-        this.producerAwardIntervalRepository = producerAwardIntervalRepositoryImpl;
-        this.producersAwardsMapperService = producersAwardsMapperService;
-    }
+  public MovieSearchServiceImpl(
+      ProducerAwardIntervalRepositoryImpl producerAwardIntervalRepositoryImpl,
+      ProducersAwardsMapperService producersAwardsMapperService
+  ) {
+    this.producerAwardIntervalRepository = producerAwardIntervalRepositoryImpl;
+    this.producersAwardsMapperService = producersAwardsMapperService;
+  }
 
-    @Override
-    public ResponseProducersAwards getProducersAwards() {
-        var producerAwardsInterval = producerAwardIntervalRepository.getProducerWithLongestAndFastestAwardsInterval();
-        return producersAwardsMapperService.mapToResponseProducersAwards(producerAwardsInterval);
-    }
+  @Override
+  public ResponseProducersAwards getProducersAwards() {
+    var producerAwardsInterval = producerAwardIntervalRepository.getProducerWithLongestAndFastestAwardsInterval();
+    return producersAwardsMapperService.mapToResponseProducersAwards(producerAwardsInterval);
+  }
 }

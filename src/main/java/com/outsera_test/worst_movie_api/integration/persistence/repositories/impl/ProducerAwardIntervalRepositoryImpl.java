@@ -12,31 +12,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProducerAwardIntervalRepositoryImpl implements ProducerAwardIntervalRepository {
 
-    @PersistenceContext
-    private EntityManager em;
+  @PersistenceContext
+  private EntityManager em;
 
-    @Override
-    public List<ProducerAwardIntervalDomain> getProducerWithLongestAndFastestAwardsInterval() {
-        String query = """
-                 SELECT
-                    m.producers as producer,
-                    MAX(m.year) - MIN(m.year) AS interval,
-                    MIN(m.year) AS min,
-                    MAX(m.year) AS max
-                 FROM
-                    MovieEntity m
-                 WHERE
-                    m.winner = true
-                 GROUP BY
-                    m.producers
-                 ORDER BY
-                    MIN(m.year) ASC
-                """;
+  @Override
+  public List<ProducerAwardIntervalDomain> getProducerWithLongestAndFastestAwardsInterval() {
+    String query = """
+         SELECT
+            m.producers as producer,
+            MAX(m.year) - MIN(m.year) AS interval,
+            MIN(m.year) AS min,
+            MAX(m.year) AS max
+         FROM
+            MovieEntity m
+         WHERE
+            m.winner = true
+         GROUP BY
+            m.producers
+         ORDER BY
+            MIN(m.year) ASC
+        """;
 
-        TypedQuery<ProducerAwardIntervalDomain> typedQuery = em.createQuery(query, ProducerAwardIntervalDomain.class);
+    TypedQuery<ProducerAwardIntervalDomain> typedQuery = em.createQuery(query,
+        ProducerAwardIntervalDomain.class);
 
-        if (typedQuery.getResultList().isEmpty()) throw new ProducerAwardIntervalNotFoundException();
+      if (typedQuery.getResultList().isEmpty()) {
+          throw new ProducerAwardIntervalNotFoundException();
+      }
 
-        return typedQuery.getResultList();
-    }
+    return typedQuery.getResultList();
+  }
 }

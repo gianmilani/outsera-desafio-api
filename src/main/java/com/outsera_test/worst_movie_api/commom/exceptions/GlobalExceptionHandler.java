@@ -19,47 +19,48 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex,
-            HttpHeaders headers, HttpStatusCode status,
-            WebRequest request
-    ) {
-        Map<String, String> validationErrors = new HashMap<>();
-        List<ObjectError> validationErrorList = ex.getBindingResult().getAllErrors();
 
-        validationErrorList.forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String validationMsg = error.getDefaultMessage();
-            validationErrors.put(fieldName, validationMsg);
-        });
-        return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
-    }
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex,
+      HttpHeaders headers, HttpStatusCode status,
+      WebRequest request
+  ) {
+    Map<String, String> validationErrors = new HashMap<>();
+    List<ObjectError> validationErrorList = ex.getBindingResult().getAllErrors();
+
+    validationErrorList.forEach((error) -> {
+      String fieldName = ((FieldError) error).getField();
+      String validationMsg = error.getDefaultMessage();
+      validationErrors.put(fieldName, validationMsg);
+    });
+    return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
+  }
 
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponseDto> handleRuntimeException(RuntimeException exception,
-                                                                   WebRequest webRequest) {
-        ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
-                webRequest.getDescription(false),
-                HttpStatus.BAD_REQUEST,
-                exception.getMessage(),
-                LocalDateTime.now()
-        );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(errorResponseDTO);
-    }
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<ErrorResponseDto> handleRuntimeException(RuntimeException exception,
+      WebRequest webRequest) {
+    ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
+        webRequest.getDescription(false),
+        HttpStatus.BAD_REQUEST,
+        exception.getMessage(),
+        LocalDateTime.now()
+    );
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(errorResponseDTO);
+  }
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ErrorResponseDto> handleRuntimeException(CustomException exception,
-                                                                   WebRequest webRequest) {
-        ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
-                webRequest.getDescription(false),
-                exception.getStatusCode(),
-                exception.getCustomerMessage(),
-                LocalDateTime.now()
-        );
-        return ResponseEntity.status(exception.getStatusCode())
-                .body(errorResponseDTO);
-    }
+  @ExceptionHandler(CustomException.class)
+  public ResponseEntity<ErrorResponseDto> handleRuntimeException(CustomException exception,
+      WebRequest webRequest) {
+    ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
+        webRequest.getDescription(false),
+        exception.getStatusCode(),
+        exception.getCustomerMessage(),
+        LocalDateTime.now()
+    );
+    return ResponseEntity.status(exception.getStatusCode())
+        .body(errorResponseDTO);
+  }
 }

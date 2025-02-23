@@ -16,10 +16,13 @@
 | openapi    | 2.85    |
 
 ### Executando a Aplicação pelo CLI do Linux
+
     gradle bootRun
 
 ### Executando Testes pelo CLI do Linux
+
     gradle test
 
 ### Consumo manual da Api via OpenApi
+
 [Link OpenAPI para consumo](http://localhost:8080/swagger-ui/index.html)

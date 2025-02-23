@@ -11,16 +11,17 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class MovieCsvRepresentation {
-    @PreAssignmentValidator(validator = MustMatchRegexExpression.class, paramString = "^[0-9]{4}$")
-    @CsvBindByPosition(position = 0)
-    private int year;
-    @CsvBindByPosition(position = 1)
-    private String title;
-    @CsvBindByPosition(position = 2)
-    private String studios;
-    @CsvBindByPosition(position = 3)
-    private String producers;
-    @CsvBindByPosition(position = 4)
-    private String winner;
+
+  @PreAssignmentValidator(validator = MustMatchRegexExpression.class, paramString = "^[0-9]{4}$")
+  @CsvBindByPosition(position = 0)
+  private int year;
+  @CsvBindByPosition(position = 1)
+  private String title;
+  @CsvBindByPosition(position = 2)
+  private String studios;
+  @CsvBindByPosition(position = 3)
+  private String producers;
+  @CsvBindByPosition(position = 4)
+  private String winner;
 }
 
