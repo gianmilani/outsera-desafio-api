@@ -15,7 +15,7 @@ public class ProducerAwardIntervalRepositoryImpl implements ProducerAwardInterva
     @PersistenceContext
     private EntityManager em;
 
-    @Override //TODO(Pensar em cachear a resposta talvez)
+    @Override
     public List<ProducerAwardIntervalDomain> getProducerWithLongestAndFastestAwardsInterval() {
         String query = """
                  SELECT
@@ -29,8 +29,6 @@ public class ProducerAwardIntervalRepositoryImpl implements ProducerAwardInterva
                     m.winner = true
                  GROUP BY
                     m.producers
-                 HAVING
-                    COUNT(1) > 1
                  ORDER BY
                     MIN(m.year) ASC
                 """;

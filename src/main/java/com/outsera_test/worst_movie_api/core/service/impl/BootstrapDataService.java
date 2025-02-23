@@ -12,7 +12,7 @@ import static org.apache.logging.log4j.util.LoaderUtil.getClassLoader;
 @Slf4j
 @Component
 public class BootstrapDataService implements CommandLineRunner {
-    private static final String MOVIE_LIST_FILE = "data/movielist.csv";
+    private static final String MOVIE_LIST_FILE = "data/movielist_origianl.csv";
     private final CsvFileService csvFileService;
 
     public BootstrapDataService(CsvFileService csvFileService) {
