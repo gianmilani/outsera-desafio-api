@@ -1,4 +1,4 @@
-package com.outsera_test.worst_movie_api.core.service.impl;
+package com.outsera_test.worst_movie_api.bootstrap;
 
 import com.outsera_test.worst_movie_api.core.service.CsvFileService;
 import java.nio.file.Path;
