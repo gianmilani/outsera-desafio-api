@@ -40,8 +40,8 @@ public class ProducersAwardsMapperServiceImpl implements ProducersAwardsMapperSe
             .map(name -> ProducerAwardIntervalDomain.builder()
                 .producer(name.trim())
                 .interval(producer.getInterval())
-                .min(producer.getMin())
-                .max(producer.getMax())
+                .previousWin(producer.getPreviousWin())
+                .followingWin(producer.getFollowingWin())
                 .build()))
         .collect(Collectors.groupingBy(ProducerAwardIntervalDomain::getProducer));
   }
@@ -52,8 +52,8 @@ public class ProducersAwardsMapperServiceImpl implements ProducersAwardsMapperSe
     var producer = entry.getKey();
     var intervals = entry.getValue();
 
-    var minYearOpt = intervals.stream().mapToInt(ProducerAwardIntervalDomain::getMin).min();
-    var maxYearOpt = intervals.stream().mapToInt(ProducerAwardIntervalDomain::getMax).max();
+    var minYearOpt = intervals.stream().mapToInt(ProducerAwardIntervalDomain::getPreviousWin).min();
+    var maxYearOpt = intervals.stream().mapToInt(ProducerAwardIntervalDomain::getFollowingWin).max();
 
     if (minYearOpt.isPresent() && maxYearOpt.isPresent()) {
       var minYear = minYearOpt.getAsInt();
@@ -64,8 +64,8 @@ public class ProducersAwardsMapperServiceImpl implements ProducersAwardsMapperSe
         return ProducerAwardIntervalDomain.builder()
             .producer(producer)
             .interval(interval)
-            .min(minYear)
-            .max(maxYear)
+            .previousWin(minYear)
+            .followingWin(maxYear)
             .build();
       }
     }
@@ -76,8 +76,8 @@ public class ProducersAwardsMapperServiceImpl implements ProducersAwardsMapperSe
     var totalWeightedInterval = 0;
     var totalMaxYears = 0;
     for (ProducerAwardIntervalDomain producer : producers) {
-      totalWeightedInterval += producer.getInterval() * producer.getMax();
-      totalMaxYears += producer.getMax();
+      totalWeightedInterval += producer.getInterval() * producer.getFollowingWin();
+      totalMaxYears += producer.getFollowingWin();
     }
     return totalMaxYears == 0 ? 0 : totalWeightedInterval / totalMaxYears;
   }

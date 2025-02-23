@@ -13,6 +13,6 @@ public class ProducerAwardIntervalDomain {
 
   private String producer;
   private Integer interval;
-  private Integer min;
-  private Integer max;
+  private Integer previousWin;
+  private Integer followingWin;
 }
