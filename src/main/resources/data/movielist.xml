@@ -1,0 +1,28 @@
+Claro, posso criar um XML simples a partir dos dados CSV fornecidos. Aqui está o XML correspondente:
+
+        XML
+
+        <?xml version="1.0" encoding="UTF-8"?>
+<movies>
+    <movie>
+        <year>1980</year>
+        <title>Can't Stop the Music</title>
+        <studios>Associated Film Distribution</studios>
+        <producers>Allan Carr</producers>
+        <winner>yes</winner>
+    </movie>
+    <movie>
+        <year>1980</year>
+        <title>Cruising</title>
+        <studios>Lorimar Productions, United Artists</studios>
+        <producers>Jerry Weintraub</producers>
+        <winner></winner>
+    </movie>
+    <movie>
+        <year>1980</year>
+        <title>The Formula</title>
+        <studios>MGM, United Artists</studios>
+        <producers>Steve Shagan</producers>
+        <winner></winner>
+    </movie>
+</movies>
