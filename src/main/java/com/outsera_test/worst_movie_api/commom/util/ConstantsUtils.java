@@ -6,6 +6,7 @@ public class ConstantsUtils {
   public static final String MESSAGE_CSV_PARSING_EXCEPTION = "Erro ao processar o arquivo CSV: {}";
   public static final String MESSAGE_CSV_PERSIST_EXCEPTION = "Erro ao persistir filmes CSV";
   public static final String MESSAGE_CSV_PARSE_LINE_ERROR = "Erro de parse na linha: {} - Motivo: {}";
+  public static final String MESSAGE_FILE_NOT_EXIST_EXCEPTION = "Arquivo não existe";
   //MESSAGES PRODUCERS AWARDS
   public static final String MESSAGE_PRODUCERS_AWARDS_NOT_FOUND_EXCEPTION = "Não foram encontrados produtores para essa pesquisa";
 

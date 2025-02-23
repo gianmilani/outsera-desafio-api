@@ -1,5 +1,7 @@
 package com.outsera_test.worst_movie_api.core.service.impl;
 
+import static com.outsera_test.worst_movie_api.commom.util.ConstantsUtils.MESSAGE_CSV_PARSING_EXCEPTION;
+
 import com.outsera_test.worst_movie_api.commom.exceptions.CsvInvalidFileException;
 import com.outsera_test.worst_movie_api.commom.exceptions.CsvParsingException;
 import com.outsera_test.worst_movie_api.commom.util.csv.GenericCsvParser;
@@ -12,18 +14,22 @@ import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.outsera_test.worst_movie_api.commom.util.ConstantsUtils.MESSAGE_CSV_PARSING_EXCEPTION;
-
 @Slf4j
 @Component
 public class MovieCsvParserImpl implements MovieCsvParser {
 
+  private final GenericCsvParser genericCsvParser;
+
   private final String WINNER_CHECK = "yes";
+
+  public MovieCsvParserImpl(GenericCsvParser genericCsvParser) {
+    this.genericCsvParser = genericCsvParser;
+  }
 
   @Override
   public Set<MovieDomain> parse(File file) {
     try {
-      return GenericCsvParser.parse(
+      return genericCsvParser.parse(
           file,
           MovieCsvRepresentation.class,
           csvLine -> MovieDomain.builder()
