@@ -12,11 +12,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProducerGrouperImpl implements ProducerGrouper {
 
+  public static final String REGEX = " and|,";
+
   @Override
   public Map<String, List<ProducerAwardIntervalDomain>> groupByProducer(
       List<ProducerAwardIntervalDomain> producers) {
     return producers.stream()
-        .flatMap(producer -> stream(producer.getProducer().split("and|,"))
+        .flatMap(producer -> stream(producer.getProducer().split(REGEX))
+            .filter(name -> !name.isEmpty())
             .map(name -> ProducerAwardIntervalDomain.builder()
                 .producer(name.trim())
                 .interval(producer.getInterval())
