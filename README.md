@@ -26,3 +26,6 @@
 ### Consumo manual da Api via OpenApi
 
 [Link OpenAPI para consumo](http://localhost:8080/swagger-ui/index.html)
+
+> [!IMPORTANT]  
+> A versão do gradle precisa estar na 8.12.1 para executar os comandos acima
