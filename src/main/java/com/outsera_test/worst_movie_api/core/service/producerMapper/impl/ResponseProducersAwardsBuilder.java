@@ -2,6 +2,7 @@ package com.outsera_test.worst_movie_api.core.service.producerMapper.impl;
 
 import com.outsera_test.worst_movie_api.core.domain.ProducerAwardIntervalDomain;
 import com.outsera_test.worst_movie_api.core.domain.ResponseProducersAwards;
+import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
@@ -9,10 +10,10 @@ import org.springframework.stereotype.Component;
 public class ResponseProducersAwardsBuilder {
 
   public ResponseProducersAwards buildResponse(
-      Map<String, ProducerAwardIntervalDomain> partitionedProducers) {
+      Map<Boolean, List<ProducerAwardIntervalDomain>> partitionedProducers) {
     return ResponseProducersAwards.builder()
-        .min(partitionedProducers.get("min"))
-        .max(partitionedProducers.get("max"))
+        .min(partitionedProducers.get(true))
+        .max(partitionedProducers.get(false))
         .build();
   }
 }
