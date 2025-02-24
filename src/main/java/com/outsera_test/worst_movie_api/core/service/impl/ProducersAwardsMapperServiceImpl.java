@@ -24,7 +24,8 @@ public class ProducersAwardsMapperServiceImpl implements ProducersAwardsMapperSe
 
   public ProducersAwardsMapperServiceImpl(ProducerGrouper producerGrouper,
       ProducerIntervalCreator producerIntervalCreator,
-      WeightedAverageCalculator weightedAverageCalculator, ResponseProducersAwardsBuilder responseProducersAwardsBuilder) {
+      WeightedAverageCalculator weightedAverageCalculator,
+      ResponseProducersAwardsBuilder responseProducersAwardsBuilder) {
     this.producerGrouper = producerGrouper;
     this.producerIntervalCreator = producerIntervalCreator;
     this.weightedAverageCalculator = weightedAverageCalculator;

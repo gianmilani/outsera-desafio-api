@@ -36,9 +36,9 @@ public class ProducerAwardIntervalRepositoryImpl implements ProducerAwardInterva
     TypedQuery<ProducerAwardIntervalDomain> typedQuery = em.createQuery(query,
         ProducerAwardIntervalDomain.class);
 
-      if (typedQuery.getResultList().isEmpty()) {
-          throw new ProducerAwardIntervalNotFoundException();
-      }
+    if (typedQuery.getResultList().isEmpty()) {
+      throw new ProducerAwardIntervalNotFoundException();
+    }
 
     return typedQuery.getResultList();
   }

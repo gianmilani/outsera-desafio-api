@@ -1,5 +1,8 @@
 package com.outsera_test.worst_movie_api.core.service.impl;
 
+import static com.outsera_test.worst_movie_api.commom.util.ConstantsUtils.MESSAGE_CSV_PARSING_EXCEPTION;
+import static com.outsera_test.worst_movie_api.commom.util.ConstantsUtils.MESSAGE_CSV_PERSIST_EXCEPTION;
+
 import com.outsera_test.worst_movie_api.commom.exceptions.CsvInvalidFileException;
 import com.outsera_test.worst_movie_api.commom.exceptions.CsvParsingException;
 import com.outsera_test.worst_movie_api.core.domain.mapper.MovieDomainMapper;
@@ -13,9 +16,6 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import static com.outsera_test.worst_movie_api.commom.util.ConstantsUtils.MESSAGE_CSV_PARSING_EXCEPTION;
-import static com.outsera_test.worst_movie_api.commom.util.ConstantsUtils.MESSAGE_CSV_PERSIST_EXCEPTION;
 
 @Slf4j
 @Component

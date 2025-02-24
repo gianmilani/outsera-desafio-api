@@ -1,5 +1,7 @@
 package com.outsera_test.worst_movie_api.bootstrap;
 
+import static org.apache.logging.log4j.util.LoaderUtil.getClassLoader;
+
 import com.outsera_test.worst_movie_api.core.service.CsvFileService;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,8 +9,6 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import static org.apache.logging.log4j.util.LoaderUtil.getClassLoader;
 
 @Slf4j
 @Component

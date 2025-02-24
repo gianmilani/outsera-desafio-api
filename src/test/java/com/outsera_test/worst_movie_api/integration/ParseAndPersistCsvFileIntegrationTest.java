@@ -1,5 +1,7 @@
 package com.outsera_test.worst_movie_api.integration;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.outsera_test.worst_movie_api.IntegrationTest;
 import com.outsera_test.worst_movie_api.core.domain.mapper.MovieDomainMapper;
 import com.outsera_test.worst_movie_api.core.service.MovieCsvParser;
@@ -13,8 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.jdbc.Sql;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ParseAndPersistCsvFileIntegrationTest extends IntegrationTest {
 
