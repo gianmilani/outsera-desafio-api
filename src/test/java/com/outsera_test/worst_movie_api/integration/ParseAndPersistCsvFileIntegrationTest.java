@@ -34,7 +34,7 @@ public class ParseAndPersistCsvFileIntegrationTest extends IntegrationTest {
   @Test
   @Sql(scripts = "/cleanmovies.sql")
   void shouldBeParseAndPersistWhenCsvFileIsCorrect() throws IOException {
-    csvFileService.parseAndPersistData(getFile("movielist.csv"));
+    csvFileService.parseAndPersistData(getFile("movielist_original.csv"));
 
     List<MovieEntity> movies = movieRepository.findAll();
     assertThat(movies).isNotEmpty();

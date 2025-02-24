@@ -49,7 +49,7 @@ public class GetProducersAwardsIntervalIntegrationTest extends IntegrationTest {
   }
 
   private void generateData() throws IOException {
-    ClassPathResource resource = new ClassPathResource("movielist_search.csv");
+    ClassPathResource resource = new ClassPathResource("movielist_original.csv");
     csvFileService.parseAndPersistData(resource.getFile());
   }
 }

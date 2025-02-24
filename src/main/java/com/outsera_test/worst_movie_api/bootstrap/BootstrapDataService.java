@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BootstrapDataService implements CommandLineRunner {
 
-  private static final String MOVIE_LIST_FILE = "data/movielist_origianl.csv";
+  private static final String MOVIE_LIST_FILE = "data/movielist_original.csv";
   private final CsvFileService csvFileService;
 
   public BootstrapDataService(CsvFileService csvFileService) {
