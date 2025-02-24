@@ -1,92 +1,53 @@
 package com.outsera_test.worst_movie_api.core.service.impl;
 
+import static java.util.stream.Collectors.partitioningBy;
+
 import com.outsera_test.worst_movie_api.core.domain.ProducerAwardIntervalDomain;
 import com.outsera_test.worst_movie_api.core.domain.ResponseProducersAwards;
 import com.outsera_test.worst_movie_api.core.service.ProducersAwardsMapperService;
+import com.outsera_test.worst_movie_api.core.service.producerMapper.ProducerGrouper;
+import com.outsera_test.worst_movie_api.core.service.producerMapper.ProducerIntervalCreator;
+import com.outsera_test.worst_movie_api.core.service.producerMapper.WeightedAverageCalculator;
+import com.outsera_test.worst_movie_api.core.service.producerMapper.impl.ResponseProducersAwardsBuilder;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
-import static java.util.Arrays.stream;
-
 @Service
 public class ProducersAwardsMapperServiceImpl implements ProducersAwardsMapperService {
+
+  private final ProducerGrouper producerGrouper;
+  private final ProducerIntervalCreator producerIntervalCreator;
+  private final WeightedAverageCalculator weightedAverageCalculator;
+  private final ResponseProducersAwardsBuilder responseProducersAwardsBuilder;
+
+  public ProducersAwardsMapperServiceImpl(ProducerGrouper producerGrouper,
+      ProducerIntervalCreator producerIntervalCreator,
+      WeightedAverageCalculator weightedAverageCalculator, ResponseProducersAwardsBuilder responseProducersAwardsBuilder) {
+    this.producerGrouper = producerGrouper;
+    this.producerIntervalCreator = producerIntervalCreator;
+    this.weightedAverageCalculator = weightedAverageCalculator;
+    this.responseProducersAwardsBuilder = responseProducersAwardsBuilder;
+  }
+
 
   @Override
   public ResponseProducersAwards mapToResponseProducersAwards(
       List<ProducerAwardIntervalDomain> producersResults) {
-    var groupedByProducer = groupByProducer(producersResults);
+    var groupedByProducer = producerGrouper.groupByProducer(producersResults);
 
     var producerIntervals = groupedByProducer.entrySet().stream()
-        .map(this::createProducerAwardInterval)
+        .map(producerIntervalCreator::createProducerAwardInterval)
         .filter(Objects::nonNull)
         .collect(Collectors.toList());
 
-    var weightedAverage = calculateWeightedAverage(producerIntervals);
+    var weightedAverage = weightedAverageCalculator.calculateWeightedAverage(producerIntervals);
 
-    var partitionedProducers = producerIntervals.stream()
-        .collect(Collectors.partitioningBy(producer -> producer.getInterval() < weightedAverage));
+    var partitionedProducers = producerIntervals.stream().collect(
+        partitioningBy(producer -> producer.getInterval() < weightedAverage)
+    );
 
-    return buildResponse(partitionedProducers);
-  }
-
-  private Map<String, List<ProducerAwardIntervalDomain>> groupByProducer(
-      List<ProducerAwardIntervalDomain> producers) {
-    return producers.stream()
-        .flatMap(producer -> stream(producer.getProducer().split("and|,"))
-            .map(name -> ProducerAwardIntervalDomain.builder()
-                .producer(name.trim())
-                .interval(producer.getInterval())
-                .previousWin(producer.getPreviousWin())
-                .followingWin(producer.getFollowingWin())
-                .build()))
-        .collect(Collectors.groupingBy(ProducerAwardIntervalDomain::getProducer));
-  }
-
-  private ProducerAwardIntervalDomain createProducerAwardInterval(
-      Entry<String, List<ProducerAwardIntervalDomain>> entry
-  ) {
-    var producer = entry.getKey();
-    var intervals = entry.getValue();
-
-    var minYearOpt = intervals.stream().mapToInt(ProducerAwardIntervalDomain::getPreviousWin).min();
-    var maxYearOpt = intervals.stream().mapToInt(ProducerAwardIntervalDomain::getFollowingWin).max();
-
-    if (minYearOpt.isPresent() && maxYearOpt.isPresent()) {
-      var minYear = minYearOpt.getAsInt();
-      var maxYear = maxYearOpt.getAsInt();
-      var interval = maxYear - minYear;
-
-      if (interval > 0) {
-        return ProducerAwardIntervalDomain.builder()
-            .producer(producer)
-            .interval(interval)
-            .previousWin(minYear)
-            .followingWin(maxYear)
-            .build();
-      }
-    }
-    return null;
-  }
-
-  private double calculateWeightedAverage(List<ProducerAwardIntervalDomain> producers) {
-    var totalWeightedInterval = 0;
-    var totalMaxYears = 0;
-    for (ProducerAwardIntervalDomain producer : producers) {
-      totalWeightedInterval += producer.getInterval() * producer.getFollowingWin();
-      totalMaxYears += producer.getFollowingWin();
-    }
-    return totalMaxYears == 0 ? 0 : totalWeightedInterval / totalMaxYears;
-  }
-
-  private ResponseProducersAwards buildResponse(
-      Map<Boolean, List<ProducerAwardIntervalDomain>> partitionedProducers) {
-    return ResponseProducersAwards.builder()
-        .min(partitionedProducers.get(true))
-        .max(partitionedProducers.get(false))
-        .build();
+    return responseProducersAwardsBuilder.buildResponse(partitionedProducers);
   }
 }
