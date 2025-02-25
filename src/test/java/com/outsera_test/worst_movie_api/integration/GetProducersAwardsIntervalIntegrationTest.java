@@ -35,7 +35,7 @@ public class GetProducersAwardsIntervalIntegrationTest extends IntegrationTest {
 
   @Test
   void shouldBeReturnProducersAwardsInterval() throws Exception {
-    generateData();
+    generateData("movielist_original.csv");
     mockMvc.perform(get(PATH))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.min", hasSize(1)))
@@ -44,12 +44,13 @@ public class GetProducersAwardsIntervalIntegrationTest extends IntegrationTest {
 
   @Test
   void shouldReturnNotFoundWhenThereAreNoProducers() throws Exception {
+    generateData("movielist_empty.csv");
     mockMvc.perform(get(PATH))
         .andExpect(status().isNotFound());
   }
 
-  private void generateData() throws IOException {
-    ClassPathResource resource = new ClassPathResource("movielist_original.csv");
+  private void generateData(String csvFileName) throws IOException {
+    ClassPathResource resource = new ClassPathResource(csvFileName);
     csvFileService.parseAndPersistData(resource.getFile());
   }
 }
