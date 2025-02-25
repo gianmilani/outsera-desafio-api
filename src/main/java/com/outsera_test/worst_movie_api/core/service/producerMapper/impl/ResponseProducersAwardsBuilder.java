@@ -12,8 +12,8 @@ public class ResponseProducersAwardsBuilder {
   public ResponseProducersAwards buildResponse(
       Map<Boolean, List<ProducerAwardIntervalDomain>> partitionedProducers) {
     return ResponseProducersAwards.builder()
-        .min(partitionedProducers.get(true))
-        .max(partitionedProducers.get(false))
+        .min(partitionedProducers.get(false))
+        .max(partitionedProducers.get(true))
         .build();
   }
 }

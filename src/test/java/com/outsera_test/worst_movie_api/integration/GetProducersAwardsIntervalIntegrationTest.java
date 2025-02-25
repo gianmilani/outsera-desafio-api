@@ -38,8 +38,8 @@ public class GetProducersAwardsIntervalIntegrationTest extends IntegrationTest {
     generateData();
     mockMvc.perform(get(PATH))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.min", hasSize(4)))
-        .andExpect(jsonPath("$.max", hasSize(3)));
+        .andExpect(jsonPath("$.min", hasSize(1)))
+        .andExpect(jsonPath("$.max", hasSize(1)));
   }
 
   @Test
@@ -49,7 +49,7 @@ public class GetProducersAwardsIntervalIntegrationTest extends IntegrationTest {
   }
 
   private void generateData() throws IOException {
-    ClassPathResource resource = new ClassPathResource("movielist_search.csv");
+    ClassPathResource resource = new ClassPathResource("movielist_original.csv");
     csvFileService.parseAndPersistData(resource.getFile());
   }
 }

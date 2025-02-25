@@ -16,7 +16,8 @@ public class ProducerGrouperImpl implements ProducerGrouper {
 
   @Override
   public Map<String, List<ProducerAwardIntervalDomain>> groupByProducer(
-      List<ProducerAwardIntervalDomain> producers) {
+      List<ProducerAwardIntervalDomain> producers
+  ) {
     return producers.stream()
         .flatMap(producer -> stream(producer.getProducer().split(REGEX))
             .filter(name -> !name.isEmpty())
